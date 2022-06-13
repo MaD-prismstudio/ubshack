@@ -17,8 +17,8 @@ spec:
         image: registryqjf0706.azurecr.io/tripinsights/poi:1.0
         imagePullPolicy: Always
         envFrom:
-        - configMapRef:
-            name: poi-config
+            - secretRef:
+                name: dbpass
         ports:
         - containerPort: 80
     
