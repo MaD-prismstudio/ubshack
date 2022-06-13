@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: poi
+  name: trip-viewer
 spec:
   type: ClusterIP
   selector:
-    app: poi
+    app: trip-viewer
   ports:
     - protocol: TCP
-      port: 8080
+      port: 80
       targetPort: 80

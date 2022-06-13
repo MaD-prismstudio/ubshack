@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: poi
+  name: trip-viewer
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: poi
+      app: trip-viewer
   template:
     metadata:
       labels:
-        app: poi
+        app: trip-viewer
     spec:
       containers:
-      - name: poi
-        image: registryqjf0706.azurecr.io/tripinsights/poi:1.0
+      - name: trip-viewer
+        image: registryqjf0706.azurecr.io/tripinsights/tripviewer:1.0
         imagePullPolicy: Always
         envFrom:
-        - configMapRef:
-            name: poi-config
+            - secretRef:
+                name: dbpass
         ports:
         - containerPort: 80
     

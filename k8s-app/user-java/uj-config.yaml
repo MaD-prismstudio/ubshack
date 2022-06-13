@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: poi-config
+  name: user-java-config
 data:
   SQL_USER: "sqladminqJf0706"
   SQL_PASSWORD: ""
