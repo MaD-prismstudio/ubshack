@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: poi
+  template:
+    metadata:
+      labels:
+        app: poi
+    spec:
+      containers:
+      - name: poi
+        image: registryqjf0706.azurecr.io/tripinsights/poi:1.0
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: poi-config
+        ports:
+        - containerPort: 80
+    
