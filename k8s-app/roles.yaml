@@ -17,17 +17,32 @@ rules:
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: role-bind-dev
+  name: role-bind-api-dev
+  namespace: api
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: role-dev
 subjects:
 - kind: User
+  name: apidev@msftopenhack6841ops.onmicrosoft.com
+  apiGroup: rbac.authorization.k8s.io
   namespace: api
-  name: 182ad374-e73d-4c91-833f-d5c8a589bae4
+
+---
+
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: role-bind-web-dev
+  namespace: web
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: role-dev
 subjects:
 - kind: User
   namespace: web
-  name: 0243c1e6-9640-45ec-9281-04e575233717
+  name: webdev@msftopenhack6841ops.onmicrosoft.com
+  apiGroup: rbac.authorization.k8s.io
 
