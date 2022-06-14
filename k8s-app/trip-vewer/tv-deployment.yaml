@@ -16,9 +16,11 @@ spec:
       - name: trip-viewer
         image: registryqjf0706.azurecr.io/tripinsights/tripviewer:1.0
         imagePullPolicy: Always
-        envFrom:
-            - secretRef:
-                name: dbpass
+        env:
+          - name: USERPROFILE_API_ENDPOINT
+            value: "http://user-profile.api.svc.cluster.local"
+          - name: TRIPS_API_ENDPOINT
+            value: "http://trips-api.api.svc.cluster.local"
         ports:
         - containerPort: 80
     

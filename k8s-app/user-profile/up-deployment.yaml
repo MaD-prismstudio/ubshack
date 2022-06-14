@@ -16,9 +16,16 @@ spec:
       - name: user-profile
         image: registryqjf0706.azurecr.io/tripinsights/userprofile:1.0
         imagePullPolicy: Always
-        envFrom:
-            - secretRef:
-                name: dbpass
         ports:
         - containerPort: 80
-    
+        volumeMounts:
+        - name: secrets-store-inline
+          mountPath: "/secrets"
+          readOnly: true
+      volumes:
+        - name: secrets-store-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "ubs-vault"

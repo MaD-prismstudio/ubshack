@@ -1,0 +1,36 @@
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name: ubs-vault                  # The name of the Azure Key Vault
+  # namespace: api
+spec:
+  provider: azure
+  parameters:
+    usePodIdentity: "false"
+    keyvaultName: ubs-vault       # The name of the Azure Key Vault
+    useVMManagedIdentity: "true"         
+    userAssignedIdentityID: "59955e24-a67f-4b4c-94b8-d13908149d6f" 
+    cloudName: ""                         # [OPTIONAL for Azure] if not provided, Azure environment will default to AzurePublicCloud 
+    objects:  |
+      array:
+        - |
+          objectName: sqluser       # In this example, 'ExampleSecret'   
+          objectType: secret
+          objectAlias: SQL_USER              # Object types: secret, key or cert
+          objectVersion: ""               # [OPTIONAL] object versions, default to latest if empty
+        - |
+          objectName: sqlpass      # In this example, 'ExampleSecret'   
+          objectType: secret
+          objectAlias: SQL_PASSWORD                # Object types: secret, key or cert
+          objectVersion: ""               # [OPTIONAL] object versions, default to latest if empty
+        - |
+          objectName: sqlserver       # In this example, 'ExampleSecret'   
+          objectType: secret
+          objectAlias: SQL_SERVER                # Object types: secret, key or cert
+          objectVersion: ""               # [OPTIONAL] object versions, default to latest if empty
+        - |
+          objectName: sqldb       # In this example, 'ExampleSecret'   
+          objectType: secret
+          objectAlias: SQL_DBNAME                # Object types: secret, key or cert
+          objectVersion: ""               # [OPTIONAL] object versions, default to latest if empty
+    tenantId: "54b5e27e-ef82-4d67-a9ad-81bb9521d6f2"              # the tenant ID containing the Azure Key Vault instance        
