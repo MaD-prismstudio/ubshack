@@ -1,0 +1,33 @@
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: role-dev
+rules:
+- apiGroups: [""]
+  resources: ["*"]
+  verbs: ["*"]
+#- apiGroups: ["batch"]
+#  resources:
+#  - jobs
+#  - cronjobs
+#  verbs: ["*"]
+
+---
+
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: role-bind-dev
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: role-dev
+subjects:
+- kind: User
+  namespace: api
+  name: 182ad374-e73d-4c91-833f-d5c8a589bae4
+subjects:
+- kind: User
+  namespace: web
+  name: 0243c1e6-9640-45ec-9281-04e575233717
+
