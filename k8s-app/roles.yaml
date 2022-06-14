@@ -3,7 +3,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: role-read-dev
 rules:
-- apiGroups: [""]
+- apiGroups: ["*"]
   resources: ["*"]
   verbs: ["get", "list", "watch"]
 
@@ -14,7 +14,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: role-write-dev
 rules:
-- apiGroups: [""]
+- apiGroups: ["*"]
   resources: ["*"]
   verbs: ["*"]
 
