@@ -1,11 +1,22 @@
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: role-dev
+  name: role-read-dev
 rules:
 - apiGroups: [""]
   resources: ["*"]
   verbs: ["get", "list", "watch"]
+
+---
+
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: role-write-dev
+rules:
+- apiGroups: [""]
+  resources: ["*"]
+  verbs: ["*"]
 
 ---
 
@@ -17,7 +28,7 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: role-dev
+  name: role-write-dev
 subjects:
 - kind: User
   name: apidev@msftopenhack6841ops.onmicrosoft.com
@@ -34,10 +45,44 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: role-dev
+  name: role-write-dev
 subjects:
 - kind: User
   namespace: web
   name: webdev@msftopenhack6841ops.onmicrosoft.com
   apiGroup: rbac.authorization.k8s.io
+
+---
+
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: role-bind-read-api-dev
+  namespace: web
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: role-read-dev
+subjects:
+- kind: User
+  name: apidev@msftopenhack6841ops.onmicrosoft.com
+  apiGroup: rbac.authorization.k8s.io
+  namespace: web
+
+---
+
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: role-bind-read-web-dev
+  namespace: api
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: role-read-dev
+subjects:
+- kind: User
+  name: webdev@msftopenhack6841ops.onmicrosoft.com
+  apiGroup: rbac.authorization.k8s.io
+  namespace: api
 
